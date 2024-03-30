@@ -15,6 +15,7 @@ public sealed class ApplicationDbContext : DbContext
     public DbSet<Tag> tags { get; set; }
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
+        modelBuilder.ApplyConfigurationsFromAssembly(typeof(ApplicationDbContext).Assembly);
         base.OnModelCreating(modelBuilder);
     }
 }
