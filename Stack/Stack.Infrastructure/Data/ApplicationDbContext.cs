@@ -1,5 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Stack.Infrastructure.Model;
+using Stack.Domain.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;

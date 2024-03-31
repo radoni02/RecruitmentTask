@@ -5,14 +5,14 @@ using System.Text;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
-namespace Stack.Infrastructure.Model;
+namespace Stack.Domain.Model;
 
 public class Tag
 {
     [JsonPropertyName("collectives ")]
     public List<Collectives>? Collectives { get; init; }
     [JsonPropertyName("count")]
-    public int Count{ get; init; }
+    public int Count { get; init; }
     [JsonPropertyName("has_synonyms")]
     public bool HasSynonyms { get; init; }
     [JsonPropertyName("is_moderator_only")]

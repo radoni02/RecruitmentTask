@@ -1,12 +1,11 @@
-﻿using Stack.Infrastructure.Model;
-using System.Text.Json.Serialization;
+﻿using System.Text.Json.Serialization;
 
 namespace Stack.Api.Dtos;
 
 public class TagDto
 {
     [JsonPropertyName("collectives ")]
-    public List<Collectives>? Collectives { get; init; }
+    public List<CollectivesDto>? Collectives { get; init; }
     [JsonPropertyName("count")]
     public int Count { get; init; }
     [JsonPropertyName("has_synonyms")]

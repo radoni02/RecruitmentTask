@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Stack.Domain.Model;
+using System;
 using System.Collections.Generic;
 using System.IO.Compression;
 using System.Linq;
@@ -17,22 +18,22 @@ public sealed class StackExchangeService
         _httpClient = httpClient;
     }
 
-    //public async Task<Wrapper<Tag>?> GetTagsAsync(string url)
-    //{
-    //    var tagsResponse = await _httpClient.GetAsync(url);
-    //    if (tagsResponse.Content.Headers.ContentEncoding.Contains("gzip"))
-    //    {
-    //        using (var decompressedStream = new GZipStream(await tagsResponse.Content.ReadAsStreamAsync(), CompressionMode.Decompress))
-    //        using (var decompressedReader = new StreamReader(decompressedStream))
-    //        {
+    public async Task<Wrapper<Tag>?> GetTagsAsync(string url)
+    {
+        var tagsResponse = await _httpClient.GetAsync(url);
+        if (tagsResponse.Content.Headers.ContentEncoding.Contains("gzip"))
+        {
+            using (var decompressedStream = new GZipStream(await tagsResponse.Content.ReadAsStreamAsync(), CompressionMode.Decompress))
+            using (var decompressedReader = new StreamReader(decompressedStream))
+            {
 
-    //            var result = await decompressedReader.ReadToEndAsync();
-    //            // Deserializacja JSON do obiektu
-    //            var response = JsonSerializer.Deserialize<Wrapper<Tag>>(result);
-    //            return response;
-    //        }
-    //    }
-    //    throw new Exception();
+                var result = await decompressedReader.ReadToEndAsync();
+                // Deserializacja JSON do obiektu
+                var response = JsonSerializer.Deserialize<Wrapper<Tag>>(result);
+                return response;
+            }
+        }
+        throw new Exception();
 
-    //}
+    }
 }

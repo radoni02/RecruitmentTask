@@ -5,11 +5,12 @@ using System.Text;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
-namespace Stack.Infrastructure.Model; 
+namespace Stack.Domain.Model;
+
 public class Wrapper<T> where T : class//implement marker interface here
-{ 
+{
     [JsonPropertyName("backoff")]
-    public int? BackOff{ get; init; }
+    public int? BackOff { get; init; }
     [JsonPropertyName("error_id")]
     public int? ErrorId { get; init; }
     [JsonPropertyName("error_message")]
@@ -21,7 +22,7 @@ public class Wrapper<T> where T : class//implement marker interface here
     [JsonPropertyName("items")]
     public T Items { get; init; }
     [JsonPropertyName("quota_max")]
-    public int QuotaMax{ get; init; }
+    public int QuotaMax { get; init; }
     [JsonPropertyName("quota_remaining")]
-    public int QuotaRemaining { get; init;} 
+    public int QuotaRemaining { get; init; }
 }

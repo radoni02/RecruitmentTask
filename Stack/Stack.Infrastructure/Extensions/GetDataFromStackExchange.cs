@@ -4,8 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Stack.Infrastructure.Model;
+namespace Stack.Infrastructure.Extensions;
 
-public class Collectives //for now it is mock check if implementation is required
+internal class GetDataFromStackExchange
 {
 }
