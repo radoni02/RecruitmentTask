@@ -1,4 +1,6 @@
-﻿using Stack.Application.SeedData;
+﻿using Stack.Application;
+using Stack.Application.SeedData;
+using Stack.Domain.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,8 +11,21 @@ namespace Stack.Infrastructure.Extensions;
 
 internal class SeedDataToDb : ISeedData//here will be writting to db
 {
-    public async Task Seed()
+    private readonly ITagRepository _tagRepository;
+
+    public SeedDataToDb(ITagRepository tagRepository)
     {
-        throw new NotImplementedException();
+        _tagRepository = tagRepository;
+    }
+
+    public async Task Seed(List<Tag> tags)
+    {
+        if(!await _tagRepository.BulkInsertToDbAsync(tags))
+        {
+            //throw ex
+            //log error
+        }
+        //log success
+
     }
 }

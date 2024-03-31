@@ -9,6 +9,7 @@ namespace Stack.Domain.Model;
 
 public class Tag
 {
+    public Guid Id { get; init; }
     [JsonPropertyName("collectives ")]
     public List<Collectives>? Collectives { get; init; }
     [JsonPropertyName("count")]

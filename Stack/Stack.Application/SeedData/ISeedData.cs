@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Stack.Domain.Model;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,6 +9,6 @@ namespace Stack.Application.SeedData
 {
     public interface ISeedData
     {
-        Task Seed();
+        Task Seed(List<Tag> tags);
     }
 }

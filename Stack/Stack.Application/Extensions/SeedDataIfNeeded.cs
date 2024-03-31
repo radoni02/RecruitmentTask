@@ -32,6 +32,6 @@ public class SeedDataIfNeeded
         {
             //logging and exception handling
         }
-        await _seedData.Seed();
+        await _seedData.Seed(tags);
     }
 }
