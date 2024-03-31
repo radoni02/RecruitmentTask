@@ -16,6 +16,6 @@ public static class ApplicationBuilderExtensions
     public static void SeedDataProvider(this IApplicationBuilder app)
     {
         using var scope = app.ApplicationServices.CreateScope();
-        scope.ServiceProvider.GetRequiredService<SeedDataIfNeeded>().SeedData();
+        scope.ServiceProvider.GetRequiredService<SeedDataIfNeeded>().Tags();
     }
 }

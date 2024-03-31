@@ -21,12 +21,18 @@ public class SeedDataIfNeeded
         _tagRepository = tagRepository;
     }
 
-    public async void SeedData()
+    public async Task Tags()
     {
         if (await _tagRepository.AnyAsync())
         {
             //done
         }
+        await SeedData();
+    }
+
+    private async Task SeedData()
+    {
+        
         var tags = await _unPackData.UnPackObjects();
         if(tags is null)
         {
