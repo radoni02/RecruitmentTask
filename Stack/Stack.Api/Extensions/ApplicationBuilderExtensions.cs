@@ -10,7 +10,12 @@ public static class ApplicationBuilderExtensions
     {
         using var scope = app.ApplicationServices.CreateScope();
         using var dbContext = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
-        dbContext.Database.Migrate();
+        if (!dbContext.Database.GetAppliedMigrations().Any())
+        {
+            dbContext.Database.Migrate();
+            //log that migration will be created
+        }
+        //log that migration is already created 
     }
 
     public static void SeedDataProvider(this IApplicationBuilder app)
