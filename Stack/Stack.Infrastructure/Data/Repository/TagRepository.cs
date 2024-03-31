@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Stack.Application;
+using Stack.Application.Dtos;
 using Stack.Domain.Model;
 using System;
 using System.Collections.Generic;
@@ -36,6 +37,9 @@ internal class TagRepository : ITagRepository
         {
             return false;
         }
-        
     }
+
+    public async Task<List<Tag>> GetAllTags()
+        => await _context.tags.ToListAsync();
+    
 }

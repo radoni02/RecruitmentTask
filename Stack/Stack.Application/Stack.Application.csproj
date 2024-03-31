@@ -15,4 +15,8 @@
     <ProjectReference Include="..\Stack.Domain\Stack.Domain.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="CountPercentage\" />
+  </ItemGroup>
+
 </Project>
