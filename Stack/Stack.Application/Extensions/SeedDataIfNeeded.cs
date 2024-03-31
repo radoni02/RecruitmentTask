@@ -23,15 +23,15 @@ public class SeedDataIfNeeded
 
     public async void SeedData()
     {
-        if(await _tagRepository.AnyAsync())
+        if (await _tagRepository.AnyAsync())
         {
             //done
         }
-        var tags =await _unPackData.UnPackObjects();
+        var tags = await _unPackData.UnPackObjects();
         if(tags is null)
         {
             //logging and exception handling
         }
-        _seedData.Seed();
+        await _seedData.Seed();
     }
 }
