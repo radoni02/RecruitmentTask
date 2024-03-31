@@ -1,4 +1,7 @@
-using Stack.Application.Services;
+
+
+using Stack.Application.Extensions;
+using Stack.Infrastructure.SeedData;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -23,7 +26,10 @@ builder.Services.AddHttpClient<StackExchangeService>((serviceProvider, httpClien
 })
 .SetHandlerLifetime(Timeout.InfiniteTimeSpan);
 
+
 var app = builder.Build();
+
+app.Services.GetRequiredService<SeedDataIfNeeded>().SeedData();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())

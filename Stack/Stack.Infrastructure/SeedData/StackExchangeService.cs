@@ -7,7 +7,7 @@ using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
 
-namespace Stack.Application.Services;
+namespace Stack.Infrastructure.SeedData;
 
 public sealed class StackExchangeService
 {
@@ -28,7 +28,6 @@ public sealed class StackExchangeService
             {
 
                 var result = await decompressedReader.ReadToEndAsync();
-                // Deserializacja JSON do obiektu
                 var response = JsonSerializer.Deserialize<Wrapper<Tag>>(result);
                 return response;
             }

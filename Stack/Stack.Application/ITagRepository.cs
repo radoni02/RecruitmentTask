@@ -4,8 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Stack.Infrastructure.Extensions;
+namespace Stack.Application;
 
-internal class GetDataFromStackExchange
+public interface ITagRepository
 {
+    Task<bool> AnyAsync();
 }

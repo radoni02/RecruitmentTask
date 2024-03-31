@@ -20,7 +20,7 @@ public class Wrapper<T> where T : class//implement marker interface here
     [JsonPropertyName("has_more")]
     public bool HasMore { get; init; }
     [JsonPropertyName("items")]
-    public T Items { get; init; }
+    public List<T> Items { get; init; }
     [JsonPropertyName("quota_max")]
     public int QuotaMax { get; init; }
     [JsonPropertyName("quota_remaining")]
