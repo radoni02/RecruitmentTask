@@ -21,10 +21,12 @@ internal sealed class TagConfiguration : IEntityTypeConfiguration<Tag>
         builder.OwnsMany(t => t.Collectives, collectives =>
         {
             collectives.WithOwner().HasForeignKey(c => c.TagId);
+            collectives.HasKey(c => c.Id);
 
             collectives.OwnsMany(c => c.ExternalLinks, externalLinks =>
             {
                 externalLinks.WithOwner().HasForeignKey(ex => ex.CollectiveId);
+                externalLinks.HasKey(ex => ex.Id);
             });
         });
     }

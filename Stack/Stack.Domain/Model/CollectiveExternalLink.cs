@@ -11,6 +11,7 @@ namespace Stack.Domain.Model;
 public class CollectiveExternalLink
 {
     public Guid CollectiveId { get; init; }
+    public Guid Id { get; init; }
     [JsonPropertyName("link")]
     public string Link { get; init; }
 
