@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Stack.Infrastructure.SeedData;
 
-public sealed class UnPack : IUnPack
+internal sealed class UnPack : IUnPack
 {
     private readonly StackExchangeService _service;
 
