@@ -10,9 +10,30 @@ namespace Stack.Application.Tags.Get
 {
     public sealed class GetAllTagsQueryHandler : IQueryHandler<GetAllTagsQuery, IReadOnlyList<TagDto>>
     {
-        public Task<IReadOnlyList<TagDto>> HandleAsync(GetAllTagsQuery query, CancellationToken cancellationToken = default)
+        private readonly ITagRepository _tagRepository;
+
+        public GetAllTagsQueryHandler(ITagRepository tagRepository)
         {
-            throw new NotImplementedException();
+            _tagRepository = tagRepository;
+        }
+
+        public async Task<IReadOnlyList<TagDto>> HandleAsync(GetAllTagsQuery query, CancellationToken cancellationToken = default)
+        {
+            var tags = await _tagRepository.GetAllTags();
+            if (tags is null)
+            {
+                //log error
+            }
+
+            var tagsDtos = tags.Select(t => new TagDto(
+                t.Count,
+                t.HasSynonyms,
+                t.IsModeratorOnly,
+                t.IsRequired,
+                t.Name,
+                t.UserId)).ToList();
+
+            return tagsDtos;
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
+using Stack.Application.Abstractions.Queries;
 using Stack.Application.Extensions;
 using System;
 using System.Collections.Generic;
@@ -12,6 +13,7 @@ public static class DependencyInjection
 {
     public static IServiceCollection AddApplication(this IServiceCollection services)
     {
+        services.AddQueries();
         services.AddScoped<SeedDataIfNeeded>();
         return services;
     }
