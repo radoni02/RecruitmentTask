@@ -36,7 +36,6 @@ builder.Services.AddHttpClient<StackExchangeService>((serviceProvider, httpClien
 var app = builder.Build();
 app.ApplyMigrations();
 app.SeedDataProvider();
-//app.Services.GetRequiredService<SeedDataIfNeeded>().SeedData() ;
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
