@@ -12,4 +12,5 @@ public interface ITagRepository
     Task<bool> AnyAsync();
     Task<bool> BulkInsertToDbAsync(List<Tag> tags);
     IQueryable<Tag> GetAllTags();
+    Task<IEnumerable<Tag>> GetAllTagsAsIEnumerable();
 }

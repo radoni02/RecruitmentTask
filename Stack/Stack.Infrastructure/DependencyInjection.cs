@@ -4,6 +4,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Stack.Application;
 using Stack.Application.Extensions;
 using Stack.Application.SeedData;
+using Stack.Application.Tags.CountPercentage;
+using Stack.Infrastructure.CountPercentage;
 using Stack.Infrastructure.Data;
 using Stack.Infrastructure.Data.Repository;
 using Stack.Infrastructure.Extensions;
@@ -30,6 +32,7 @@ public static class DependencyInjection
         services.AddScoped<ISeedData, SeedDataToDb>();
         services.AddScoped<IUnPack, UnPack>();
         services.AddScoped<ITagRepository, TagRepository>();
+        services.AddScoped<IPercentageCounter, PercentageCounter>();
         return services;
     }
 

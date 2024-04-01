@@ -6,5 +6,5 @@ using System.Threading.Tasks;
 
 namespace Stack.Application.Dtos;
 
-public record TagPercentageDto(string Name,int count,float percentage);
+public record TagPercentageDto(string Name,int Count,float Percentage);
 

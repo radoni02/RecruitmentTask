@@ -42,5 +42,8 @@ internal class TagRepository : ITagRepository
 
     public IQueryable<Tag> GetAllTags()
         => _context.tags.AsQueryable();
+
+    public async Task<IEnumerable<Tag>> GetAllTagsAsIEnumerable()
+        => await _context.tags.ToListAsync();
     
 }

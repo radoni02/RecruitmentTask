@@ -2,6 +2,7 @@
 using Stack.Application.Abstractions;
 using Stack.Application.Abstractions.Queries;
 using Stack.Application.Dtos;
+using Stack.Application.Tags.CountPercentage;
 using Stack.Application.Tags.Get;
 using Stack.Domain.Model;
 
@@ -23,6 +24,14 @@ public class TagsController : ControllerBase
     {
         var query = new GetAllTagsQuery(page,pageSize,SortColumn,SortOrder);
         var tags = await _queryDispatcher.QueryAsync<GetAllTagsQuery,PagedResult<TagDto>>(query,cancellationToken);
+        return tags;
+    }
+
+    [HttpGet("percentages")]
+    public async Task<IEnumerable<TagPercentageDto>> CountPercentage(CancellationToken cancellationToken)
+    {
+        var query = new CountPercentageQuery();
+        var tags = await _queryDispatcher.QueryAsync<CountPercentageQuery, IEnumerable<TagPercentageDto>>(query, cancellationToken);
         return tags;
     }
 }

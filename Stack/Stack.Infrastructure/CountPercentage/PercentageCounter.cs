@@ -1,4 +1,5 @@
 ﻿using Stack.Application.Dtos;
+using Stack.Application.Tags.CountPercentage;
 using Stack.Domain.Model;
 using System;
 using System.Collections.Generic;
@@ -8,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Stack.Infrastructure.CountPercentage;
 
-internal class PercentageCounter
+internal class PercentageCounter : IPercentageCounter
 {
     //yield cannot work in async methods
     public IEnumerable<float> CountPercentageFromData(List<int> counts)
