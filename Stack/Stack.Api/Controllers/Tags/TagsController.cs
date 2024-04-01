@@ -19,9 +19,9 @@ public class TagsController : ControllerBase
     }
 
     [HttpGet]
-    public async Task<PagedResult<TagDto>> GetAllTags(int page,int pageSize,CancellationToken cancellationToken)
+    public async Task<PagedResult<TagDto>> GetAllTags(int page,int pageSize,string? SortColumn,string? SortOrder ,CancellationToken cancellationToken)
     {
-        var query = new GetAllTagsQuery(page,pageSize);
+        var query = new GetAllTagsQuery(page,pageSize,SortColumn,SortOrder);
         var tags = await _queryDispatcher.QueryAsync<GetAllTagsQuery,PagedResult<TagDto>>(query,cancellationToken);
         return tags;
     }
