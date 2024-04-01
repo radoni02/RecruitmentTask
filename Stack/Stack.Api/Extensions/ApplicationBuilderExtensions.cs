@@ -18,9 +18,9 @@ public static class ApplicationBuilderExtensions
         //log that migration is already created 
     }
 
-    public static void SeedDataProvider(this IApplicationBuilder app)
+    public async static void SeedDataProvider(this IApplicationBuilder app)
     {
         using var scope = app.ApplicationServices.CreateScope();
-        scope.ServiceProvider.GetRequiredService<SeedDataIfNeeded>().Tags();
+        await scope.ServiceProvider.GetRequiredService<SeedDataIfNeeded>().Tags();
     }
 }

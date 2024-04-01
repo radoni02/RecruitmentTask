@@ -13,11 +13,16 @@ public static class Extensions
     public static IServiceCollection AddQueries(this IServiceCollection services)
     {
         services.AddSingleton<IQueryDispatcher, QueryDispatcher>();
-        services.Scan(s => s.FromAssemblies(Assembly.GetCallingAssembly())
-            .AddClasses(c => c.AssignableTo(typeof(IQueryHandler<,>)))
-            .AsImplementedInterfaces()
-            .WithScopedLifetime());
-
+        services.Scan(selector =>
+        {
+            selector.FromCallingAssembly()
+                    .AddClasses(filter =>
+                    {
+                        filter.AssignableTo(typeof(IQueryHandler<,>));
+                    })
+                    .AsImplementedInterfaces()
+                    .WithScopedLifetime();
+        });
         return services;
     }
 }

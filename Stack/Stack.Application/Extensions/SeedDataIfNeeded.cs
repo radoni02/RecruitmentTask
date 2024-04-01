@@ -27,7 +27,11 @@ public class SeedDataIfNeeded
         {
             //done
         }
-        await SeedData();
+        else
+        {
+            await SeedData();
+        }
+        
     }
 
     private async Task SeedData()
