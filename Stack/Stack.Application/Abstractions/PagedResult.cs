@@ -22,7 +22,7 @@ public class PagedResult<T>
     public int PageSize { get; }
     public int TotalCount { get; }
     public bool HasNextPage => Page * PageSize < TotalCount;
-    public bool HasPreviousPage => PageSize > 1;
+    public bool HasPreviousPage => Page > 1;
 
     //need to fetch efCore nuget
     public static async Task<PagedResult<T>> CreateAsync(IQueryable<T> query, int page, int pageSize)

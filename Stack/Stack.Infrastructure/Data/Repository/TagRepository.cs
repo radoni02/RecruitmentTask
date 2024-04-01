@@ -40,7 +40,7 @@ internal class TagRepository : ITagRepository
         }
     }
 
-    public async Task<List<Tag>> GetAllTags()
-        => await _context.tags.ToListAsync();
+    public IQueryable<Tag> GetAllTags()
+        => _context.tags.AsQueryable();
     
 }

@@ -1,5 +1,7 @@
-﻿using Stack.Application.Abstractions.Queries;
+﻿using Stack.Application.Abstractions;
+using Stack.Application.Abstractions.Queries;
 using Stack.Application.Dtos;
+using Stack.Domain.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Stack.Application.Tags.Get
 {
-    public sealed class GetAllTagsQueryHandler : IQueryHandler<GetAllTagsQuery, IReadOnlyList<TagDto>>
+    public sealed class GetAllTagsQueryHandler : IQueryHandler<GetAllTagsQuery, PagedResult<TagDto>>
     {
         private readonly ITagRepository _tagRepository;
 
@@ -17,9 +19,9 @@ namespace Stack.Application.Tags.Get
             _tagRepository = tagRepository;
         }
 
-        public async Task<IReadOnlyList<TagDto>> HandleAsync(GetAllTagsQuery query, CancellationToken cancellationToken = default)
+        public async Task<PagedResult<TagDto>> HandleAsync(GetAllTagsQuery query, CancellationToken cancellationToken = default)
         {
-            var tags = await _tagRepository.GetAllTags();
+            IQueryable<Tag> tags = _tagRepository.GetAllTags();
             if (tags is null)
             {
                 //log error
@@ -31,9 +33,10 @@ namespace Stack.Application.Tags.Get
                 t.IsModeratorOnly,
                 t.IsRequired,
                 t.Name,
-                t.UserId)).ToList();
+                t.UserId));
 
-            return tagsDtos;
+            var pagedTags = await PagedResult<TagDto>.CreateAsync(tagsDtos,query.Page,query.PageSize);
+            return pagedTags;
         }
     }
 }

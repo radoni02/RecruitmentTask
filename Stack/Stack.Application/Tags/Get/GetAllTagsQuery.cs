@@ -1,4 +1,5 @@
-﻿using Stack.Application.Abstractions.Queries;
+﻿using Stack.Application.Abstractions;
+using Stack.Application.Abstractions.Queries;
 using Stack.Application.Dtos;
 using System;
 using System.Collections.Generic;
@@ -8,4 +9,4 @@ using System.Threading.Tasks;
 
 namespace Stack.Application.Tags.Get;
 
-public record GetAllTagsQuery(int Page, int PageSize) : IQuery<List<TagDto>>;
+public record GetAllTagsQuery(int Page, int PageSize) : IQuery<PagedResult<TagDto>>;
