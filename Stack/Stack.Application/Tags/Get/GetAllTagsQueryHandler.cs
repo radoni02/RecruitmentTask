@@ -1,6 +1,8 @@
-﻿using Stack.Application.Abstractions;
+﻿using Microsoft.Extensions.Logging;
+using Stack.Application.Abstractions;
 using Stack.Application.Abstractions.Queries;
 using Stack.Application.Dtos;
+using Stack.Application.Tags.ForceRedownload;
 using Stack.Domain.Model;
 using System;
 using System.Collections.Generic;
@@ -14,28 +16,33 @@ namespace Stack.Application.Tags.Get
     public sealed class GetAllTagsQueryHandler : IQueryHandler<GetAllTagsQuery, PagedResult<TagDto>>
     {
         private readonly ITagRepository _tagRepository;
+        private readonly ILogger<GetAllTagsQueryHandler> _logger;
 
-        public GetAllTagsQueryHandler(ITagRepository tagRepository)
+        public GetAllTagsQueryHandler(ITagRepository tagRepository,ILogger<GetAllTagsQueryHandler> logger)
         {
             _tagRepository = tagRepository;
+            _logger = logger;
         }
 
         public async Task<PagedResult<TagDto>> HandleAsync(GetAllTagsQuery query, CancellationToken cancellationToken = default)
         {
+            _logger.LogInformation($"Start processing {nameof(GetAllTagsQuery)}");
             IQueryable<Tag> tags = _tagRepository.GetAllTags();
             if (tags is null)
             {
-                //log error
+                _logger.LogError("Unable to processed.");
             }
+            _logger.LogInformation("Successfully gathered from database.");
 
-
-            if(query.SortOrder?.ToLower() == "desc")
+            if (query.SortOrder?.ToLower() == "desc")
             {
+                _logger.LogInformation("Tags will be sorted in desc way.");
                 tags = tags.OrderByDescending(GetSortProperty(query));
             }
             else
             {
-               tags = tags.OrderBy(GetSortProperty(query));
+                _logger.LogInformation("Tags will be sorted in asc way.");
+                tags = tags.OrderBy(GetSortProperty(query));
             }
 
             var tagsDtos = tags.Select(t => new TagDto(

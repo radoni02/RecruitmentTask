@@ -1,4 +1,5 @@
-﻿using Stack.Application.Dtos;
+﻿using Microsoft.Extensions.Logging;
+using Stack.Application.Dtos;
 using Stack.Application.Tags.CountPercentage;
 using Stack.Domain.Model;
 using System;

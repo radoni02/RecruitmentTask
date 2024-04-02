@@ -1,4 +1,5 @@
-﻿using Stack.Application.Abstractions.Commands;
+﻿using Microsoft.Extensions.Logging;
+using Stack.Application.Abstractions.Commands;
 using Stack.Application.Extensions;
 using Stack.Domain.Model;
 using System;
@@ -13,19 +14,24 @@ public sealed class ForceRedownloadCommandHandler : ICommandHandler<ForceRedownl
 {
     private readonly ITagRepository _tagRepository;
     private readonly SeedDataIfNeeded _seedDataIfNeeded;
+    private readonly ILogger<ForceRedownloadCommandHandler> _logger;
 
-    public ForceRedownloadCommandHandler(ITagRepository tagRepository, SeedDataIfNeeded seedDataIfNeeded)
+    public ForceRedownloadCommandHandler(ITagRepository tagRepository, SeedDataIfNeeded seedDataIfNeeded,ILogger<ForceRedownloadCommandHandler> logger)
     {
         _tagRepository = tagRepository;
         _seedDataIfNeeded = seedDataIfNeeded;
+        _logger = logger;
     }
 
     public async Task HandleAsync(ForceRedownloadCommand command, CancellationToken cancellationToken)
     {
+        _logger.LogInformation($"Start processing {nameof(ForceRedownloadCommand)}");
         if(!await _tagRepository.DeleteAllTags())
         {
+            _logger.LogError("Unable to processed.");
             //throw error
         }
+        _logger.LogInformation("Successfully deleted.");
         await _seedDataIfNeeded.SeedData<Tag>();
 
         //delete cache key
