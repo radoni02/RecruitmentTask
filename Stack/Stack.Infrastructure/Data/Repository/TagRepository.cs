@@ -45,5 +45,22 @@ internal class TagRepository : ITagRepository
 
     public async Task<IEnumerable<Tag>> GetAllTagsAsIEnumerable()
         => await _context.tags.ToListAsync();
+
+    public async Task<bool> DeleteAllTags()
+    {
+        try
+        {
+            await _context.tags.ExecuteDeleteAsync();
+            return true;
+        }
+        catch(Exception ex)
+        {
+            return false;
+        }
+        
+    } 
+    
+
+    
     
 }

@@ -1,8 +1,10 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Stack.Application.Abstractions;
+using Stack.Application.Abstractions.Commands;
 using Stack.Application.Abstractions.Queries;
 using Stack.Application.Dtos;
 using Stack.Application.Tags.CountPercentage;
+using Stack.Application.Tags.ForceRedownload;
 using Stack.Application.Tags.Get;
 using Stack.Domain.Model;
 
@@ -13,10 +15,12 @@ namespace Stack.Api.Controllers.Tags;
 public class TagsController : ControllerBase
 {
     private readonly IQueryDispatcher _queryDispatcher;
+    private readonly ICommandDispatcher _commandDispatcher;
 
-    public TagsController(IQueryDispatcher queryDispatcher)
+    public TagsController(IQueryDispatcher queryDispatcher,ICommandDispatcher commandDispatcher)
     {
         _queryDispatcher = queryDispatcher;
+        _commandDispatcher = commandDispatcher;
     }
 
     [HttpGet]
@@ -33,5 +37,12 @@ public class TagsController : ControllerBase
         var query = new CountPercentageQuery();
         var tags = await _queryDispatcher.QueryAsync<CountPercentageQuery, IEnumerable<TagPercentageDto>>(query, cancellationToken);
         return tags;
+    }
+
+    [HttpPost]
+    public async Task ForceRedownloadTags(CancellationToken cancellationToken)
+    {
+        var command = new ForceRedownloadCommand();
+        await _commandDispatcher.SendAsync(command);
     }
 }

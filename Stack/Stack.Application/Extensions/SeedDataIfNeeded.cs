@@ -34,14 +34,14 @@ public class SeedDataIfNeeded
         
     }
 
-    private async Task SeedData()
+    public async Task SeedData()
     {
         
-        var tags = await _unPackData.UnPackObjects();
-        if(tags is null)
+        var objects = await _unPackData.UnPackObjects();
+        if(objects is null)
         {
             //logging and exception handling
         }
-        await _seedData.Seed(tags);
+        await _seedData.Seed(objects);
     }
 }
