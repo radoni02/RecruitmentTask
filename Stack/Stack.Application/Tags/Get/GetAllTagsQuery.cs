@@ -9,4 +9,4 @@ using System.Threading.Tasks;
 
 namespace Stack.Application.Tags.Get;
 
-public record GetAllTagsQuery(int Page, int PageSize,string? SortColumn,string? SortOrder) : IQuery<PagedResult<TagDto>>;
+public record GetAllTagsQuery(int Page, int PageSize,SortProperty SortColumn, SortOrder SortOrder) : IQuery<PagedResult<TagDto>>;

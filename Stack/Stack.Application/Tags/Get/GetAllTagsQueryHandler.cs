@@ -31,7 +31,7 @@ namespace Stack.Application.Tags.Get
 
             _logger.LogInformation("Successfully gathered from database.");
 
-            if (query.SortOrder?.ToLower() == "desc")
+            if (query.SortOrder == SortOrder.desc)
             {
                 _logger.LogInformation("Tags will be sorted in desc way.");
                 tags = tags.OrderByDescending(GetSortProperty(query));
@@ -56,10 +56,10 @@ namespace Stack.Application.Tags.Get
 
         private static Expression<Func<Tag,Object>> GetSortProperty(GetAllTagsQuery query)
         {
-            Expression<Func<Tag, object>> keySelector = query.SortColumn?.ToLower() switch
+            Expression<Func<Tag, object>> keySelector = query.SortColumn switch
             {
-                "name" => Tag => Tag.Name,
-                "count" => Tag => Tag.Count
+                SortProperty.Name => Tag => Tag.Name,
+                SortProperty.Count => Tag => Tag.Count
             };
             return keySelector;
         }

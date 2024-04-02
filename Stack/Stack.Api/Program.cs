@@ -7,6 +7,7 @@ using Stack.Application;
 using Stack.Application.Extensions;
 using Stack.Infrastructure;
 using Stack.Infrastructure.SeedData;
+using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -37,7 +38,11 @@ builder.Services.AddHttpClient<StackExchangeService>((serviceProvider, httpClien
 builder.Host.UseSerilog((context, configuration) =>
     configuration.ReadFrom.Configuration(context.Configuration));
 
-//builder.Configuration.GetSection(nameof(StackExchangeOptions)).Bind(new StackExchangeOptions());
+builder.Services.AddControllers().AddJsonOptions(options =>
+{
+    options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
+});
+
 builder.Services.Configure<StackExchangeOptions>(builder.Configuration.GetSection(nameof(StackExchangeOptions)));
 
 var app = builder.Build();
