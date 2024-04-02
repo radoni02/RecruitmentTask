@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 
 namespace Stack.Application.Exceptions;
 
-public class NotFoundException : Exception
+public class BadRequestException : Exception
 {
     public string Message { get; }
-    public NotFoundException(string message) : base(message)
+    public BadRequestException(string message) : base(message)
     {
         Message = message;
-    } 
+    }
 }

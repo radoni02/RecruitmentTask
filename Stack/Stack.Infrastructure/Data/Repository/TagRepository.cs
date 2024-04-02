@@ -35,7 +35,6 @@ internal class TagRepository : ITagRepository
         }
         catch(Exception ex)
         {
-            await Console.Out.WriteLineAsync($"{ex.Message}   {ex.InnerException}");
             return false;
         }
     }

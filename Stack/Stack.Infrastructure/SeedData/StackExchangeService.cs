@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.Logging;
+using Stack.Application.Exceptions;
 using Stack.Domain.Model;
 using System;
 using System.Collections.Generic;
@@ -44,7 +45,7 @@ public sealed class StackExchangeService
         catch (Exception ex) 
         {
             _logger.LogError(ex, $"Unable to fetch data from StackExchange api from {url}");
-            throw new Exception();
+            throw new BadRequestException($"Unable to fetch data from StackExchange api from {url}");
         }
         
 

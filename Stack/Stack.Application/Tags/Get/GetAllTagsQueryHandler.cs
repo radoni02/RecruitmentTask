@@ -31,6 +31,7 @@ namespace Stack.Application.Tags.Get
             if (tags is null)
             {
                 _logger.LogError("Unable to processed.");
+                throw new DirectoryNotFoundException("Unable to get tags.");
             }
             _logger.LogInformation("Successfully gathered from database.");
 

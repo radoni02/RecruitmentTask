@@ -51,6 +51,11 @@ public class ExceptionHandingMiddleware
                 "ValidationFailure",
                 "Validation error",
                 validationException.Message),
+            BadRequestException badRequestException => new ExceptionDetails(
+                StatusCodes.Status400BadRequest,
+                "ConnectionFailure",
+                "Connection Error",
+                badRequestException.Message),
             _ => new ExceptionDetails(
                StatusCodes.Status500InternalServerError,
                "ServerError",

@@ -29,13 +29,14 @@ internal class SeedDataToDb : ISeedData//here will be writting to db
             if (!await _tagRepository.BulkInsertToDbAsync(tagsList))
             {
                 _logger.LogError($"Unable to insert data into database.");
-                throw new Exception();
+                throw new Exception("Unable to insert data into database.");
             }
             _logger.LogInformation("Successfully inserted data to database.");
         }
         catch(Exception ex)
         {
             _logger.LogError(ex, $"Unable to cust data to Tag.");
+            throw new InvalidCastException();
         }
 
     }

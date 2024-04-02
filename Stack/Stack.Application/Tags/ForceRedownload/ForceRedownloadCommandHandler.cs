@@ -29,7 +29,7 @@ public sealed class ForceRedownloadCommandHandler : ICommandHandler<ForceRedownl
         if(!await _tagRepository.DeleteAllTags())
         {
             _logger.LogError("Unable to processed.");
-            //throw error
+            throw new Exception("Unable to delete data from database.");
         }
         _logger.LogInformation("Successfully deleted.");
         await _seedDataIfNeeded.SeedData<Tag>();
