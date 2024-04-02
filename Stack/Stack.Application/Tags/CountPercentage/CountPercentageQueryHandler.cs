@@ -38,9 +38,8 @@ public sealed class CountPercentageQueryHandler : IQueryHandler<CountPercentageQ
         var percentages = _percentageCounter.CountPercentageFromData(tags.Select(t => t.Count).ToList());
         _logger.LogInformation($"Percentages have been recalculated.");
 
-
         var tagPercetageDtos = tags.Zip(percentages, (tag,percentage) =>
-            new TagPercentageDto(tag.Name,tag.Count,percentage));
+            new TagPercentageDto(tag.Name, tag.Count, percentage));
         _logger.LogInformation($"Percentages and tags ziped.");
 
         return tagPercetageDtos;

@@ -22,21 +22,11 @@ internal class TagRepository : ITagRepository
     public async Task<bool> AnyAsync()
         => await _context.tags.AnyAsync();
 
-    public async Task<bool> BulkInsertToDbAsync(List<Tag> tags)
+    public async Task BulkInsertToDbAsync(List<Tag> tags)
     {
-        try
-        {
-            foreach (var t in tags)
-            {
-                await _context.tags.AddAsync(t);
-            }
-            await _context.SaveChangesAsync();
-            return true;
-        }
-        catch(Exception ex)
-        {
-            return false;
-        }
+        await _context.tags.AddRangeAsync(tags);
+        await _context.SaveChangesAsync();
+
     }
 
     public IQueryable<Tag> GetAllTags()

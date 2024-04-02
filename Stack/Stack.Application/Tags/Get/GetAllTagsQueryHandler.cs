@@ -27,12 +27,8 @@ namespace Stack.Application.Tags.Get
         public async Task<PagedResult<TagDto>> HandleAsync(GetAllTagsQuery query, CancellationToken cancellationToken = default)
         {
             _logger.LogInformation($"Start processing {nameof(GetAllTagsQuery)}");
-            IQueryable<Tag> tags = _tagRepository.GetAllTags();
-            if (tags is null)
-            {
-                _logger.LogError("Unable to processed.");
-                throw new DirectoryNotFoundException("Unable to get tags.");
-            }
+            var tags = _tagRepository.GetAllTags();
+
             _logger.LogInformation("Successfully gathered from database.");
 
             if (query.SortOrder?.ToLower() == "desc")
