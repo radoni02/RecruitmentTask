@@ -34,19 +34,18 @@ public class SeedDataIfNeeded
         else
         {
             _logger.LogInformation("Data will be seed into database.");
-            await SeedData<Tag>();
+            await SeedData();
         }
         
     }
 
-    public async Task SeedData<T>()
-        where T : class, IStackMarker
+    public async Task SeedData()
     {
         
-        var objects = await _unPackData.UnPackObjects<T>();
+        var objects = await _unPackData.UnPackObjects();
         if(objects is null)
         {
-            //logging and exception handling
+            _logger.LogError("Objects are null.");
         }
         await _seedData.Seed(objects);
     }

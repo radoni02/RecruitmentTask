@@ -9,6 +9,6 @@ namespace Stack.Application.SeedData
 {
     public interface ISeedData
     {
-        Task Seed<T>(List<T> tags);
+        Task Seed(List<Tag> tags);
     }
 }

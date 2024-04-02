@@ -22,8 +22,7 @@ public sealed class StackExchangeService
         _logger = logger;
     }
 
-    public async Task<Wrapper<T>?> GetTagsAsync<T>(string url)
-        where T : class, IStackMarker
+    public async Task<Wrapper<Tag>?> GetTagsAsync(string url)
     {
         try
         {
@@ -35,7 +34,7 @@ public sealed class StackExchangeService
                 {
 
                     var result = await decompressedReader.ReadToEndAsync();
-                    var response = JsonSerializer.Deserialize<Wrapper<T>>(result);
+                    var response = JsonSerializer.Deserialize<Wrapper<Tag>>(result);
                     _logger.LogInformation("Data fetched successfully.");
                     return response;
                 }

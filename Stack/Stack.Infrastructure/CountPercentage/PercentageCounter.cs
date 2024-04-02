@@ -15,14 +15,9 @@ internal class PercentageCounter : IPercentageCounter
     //yield cannot work in async methods
     public IEnumerable<float> CountPercentageFromData(List<int> counts)
     {
-        var total = 0;
+        var total = counts.Sum();
         foreach (var c in counts)
         {
-            total += c;
-        }
-        foreach (var c in counts)
-        {
-            //float percentage = c * 100.0f / total;
             yield return c * 100.0f / total;
         }
     }

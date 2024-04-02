@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Stack.Infrastructure.Data.Repository;
 
-internal class TagRepository : ITagRepository
+public class TagRepository : ITagRepository
 {
     private readonly ApplicationDbContext _context;
 

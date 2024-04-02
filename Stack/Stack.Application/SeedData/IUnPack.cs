@@ -9,5 +9,5 @@ namespace Stack.Application.SeedData;
 
 public interface IUnPack
 {
-    Task<List<T>> UnPackObjects<T>() where T : class, IStackMarker;
+    Task<List<Tag>> UnPackObjects();
 }

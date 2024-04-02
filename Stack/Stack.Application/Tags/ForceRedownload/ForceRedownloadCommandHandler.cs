@@ -32,8 +32,6 @@ public sealed class ForceRedownloadCommandHandler : ICommandHandler<ForceRedownl
             throw new Exception("Unable to delete data from database.");
         }
         _logger.LogInformation("Successfully deleted.");
-        await _seedDataIfNeeded.SeedData<Tag>();
-
-        //delete cache key
+        await _seedDataIfNeeded.SeedData();
     }
 }

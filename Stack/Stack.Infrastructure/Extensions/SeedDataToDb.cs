@@ -21,13 +21,9 @@ internal class SeedDataToDb : ISeedData
         _logger = logger;
     }
 
-    public async Task Seed<T>(List<T> tags)
+    public async Task Seed(List<Tag> tags)
     {
-
-        var tagsList = tags.Cast<Tag>().ToList();
-        await _tagRepository.BulkInsertToDbAsync(tagsList);
+        await _tagRepository.BulkInsertToDbAsync(tags);
         _logger.LogInformation("Successfully inserted data to database.");
-
-
     }
 }

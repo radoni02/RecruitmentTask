@@ -37,6 +37,9 @@ builder.Services.AddHttpClient<StackExchangeService>((serviceProvider, httpClien
 builder.Host.UseSerilog((context, configuration) =>
     configuration.ReadFrom.Configuration(context.Configuration));
 
+//builder.Configuration.GetSection(nameof(StackExchangeOptions)).Bind(new StackExchangeOptions());
+builder.Services.Configure<StackExchangeOptions>(builder.Configuration.GetSection(nameof(StackExchangeOptions)));
+
 var app = builder.Build();
 app.ApplyMigrations();
 app.SeedDataProvider();

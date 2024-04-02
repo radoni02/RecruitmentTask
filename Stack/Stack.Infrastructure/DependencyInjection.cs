@@ -33,6 +33,7 @@ public static class DependencyInjection
         services.AddScoped<IUnPack, UnPack>();
         services.AddScoped<ITagRepository, TagRepository>();
         services.AddScoped<IPercentageCounter, PercentageCounter>();
+
         return services;
     }
 
