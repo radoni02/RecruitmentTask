@@ -2,6 +2,7 @@
 
 using Serilog;
 using Stack.Api.Extensions;
+using Stack.Api.Middleware;
 using Stack.Application;
 using Stack.Application.Extensions;
 using Stack.Infrastructure;
@@ -52,6 +53,7 @@ app.UseHttpsRedirection();
 
 app.UseAuthorization();
 
+app.UseMiddleware<ExceptionHandingMiddleware>();
 app.MapControllers();
 
 app.Run();

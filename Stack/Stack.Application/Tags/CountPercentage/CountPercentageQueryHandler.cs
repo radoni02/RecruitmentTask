@@ -2,6 +2,7 @@
 using Stack.Application.Abstractions;
 using Stack.Application.Abstractions.Queries;
 using Stack.Application.Dtos;
+using Stack.Application.Exceptions;
 using Stack.Application.Tags.ForceRedownload;
 using System;
 using System.Collections.Generic;
@@ -31,7 +32,7 @@ public sealed class CountPercentageQueryHandler : IQueryHandler<CountPercentageQ
         if(tags is null)
         {
             _logger.LogError("Unable to processed.");
-            //log error
+            throw new NotFoundException("Unable to get tags.");
         }
         _logger.LogInformation($"Successfully gathered from database.");
         var percentages = _percentageCounter.CountPercentageFromData(tags.Select(t => t.Count).ToList());
