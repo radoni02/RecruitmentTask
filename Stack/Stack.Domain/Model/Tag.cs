@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Stack.Domain.Model;
 
-public class Tag
+public class Tag : IStackMarker
 {
     public Guid Id { get; init; }
     [JsonPropertyName("collectives ")]

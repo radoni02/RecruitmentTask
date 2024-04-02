@@ -18,14 +18,22 @@ internal class SeedDataToDb : ISeedData//here will be writting to db
         _tagRepository = tagRepository;
     }
 
-    public async Task Seed(List<Tag> tags)
+    public async Task Seed<T>(List<T> tags)
     {
-        if(!await _tagRepository.BulkInsertToDbAsync(tags))
+        try
         {
-            //throw ex
-            //log error
+            var tagsList = tags.Cast<Tag>().ToList();
+            if (!await _tagRepository.BulkInsertToDbAsync(tagsList))
+            {
+                //throw ex
+                //log error
+            }
+            //log success
         }
-        //log success
+        catch(Exception ex)
+        {
+            await Console.Out.WriteLineAsync($"{ex.Message}");
+        }
 
     }
 }

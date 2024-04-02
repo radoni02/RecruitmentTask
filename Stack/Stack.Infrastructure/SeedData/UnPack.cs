@@ -17,14 +17,15 @@ internal sealed class UnPack : IUnPack
         _service = service;
     }
 
-    public async Task<List<Tag>> UnPackObjects()
+    public async Task<List<T>> UnPackObjects<T>()
+        where T : class, IStackMarker
     {
         bool hasMore = true;
         int page = 1;
-        var tags = new List<Tag>();
+        var tags = new List<T>();
         while (hasMore)
         {
-            var response = await _service.GetTagsAsync($"/2.3/tags?page={page}&pagesize=100&order=desc&sort=popular&site=stackoverflow");
+            var response = await _service.GetTagsAsync<T>($"/2.3/tags?page={page}&pagesize=100&order=desc&sort=popular&site=stackoverflow");
 
             foreach (var t in response.Items)
                 tags.Add(t);

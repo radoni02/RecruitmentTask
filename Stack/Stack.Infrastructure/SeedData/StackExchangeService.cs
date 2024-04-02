@@ -18,7 +18,8 @@ public sealed class StackExchangeService
         _httpClient = httpClient;
     }
 
-    public async Task<Wrapper<Tag>?> GetTagsAsync(string url)
+    public async Task<Wrapper<T>?> GetTagsAsync<T>(string url)
+        where T : class, IStackMarker
     {
         var tagsResponse = await _httpClient.GetAsync(url);
         if (tagsResponse.Content.Headers.ContentEncoding.Contains("gzip"))
@@ -28,7 +29,7 @@ public sealed class StackExchangeService
             {
 
                 var result = await decompressedReader.ReadToEndAsync();
-                var response = JsonSerializer.Deserialize<Wrapper<Tag>>(result);
+                var response = JsonSerializer.Deserialize<Wrapper<T>>(result);
                 return response;
             }
         }

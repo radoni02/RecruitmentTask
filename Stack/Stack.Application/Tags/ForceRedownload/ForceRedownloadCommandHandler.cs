@@ -1,5 +1,6 @@
 ﻿using Stack.Application.Abstractions.Commands;
 using Stack.Application.Extensions;
+using Stack.Domain.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,7 +26,7 @@ public sealed class ForceRedownloadCommandHandler : ICommandHandler<ForceRedownl
         {
             //throw error
         }
-        await _seedDataIfNeeded.SeedData();
+        await _seedDataIfNeeded.SeedData<Tag>();
 
         //delete cache key
     }

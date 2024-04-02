@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Builder;
 using Stack.Application.SeedData;
+using Stack.Domain.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -29,15 +30,16 @@ public class SeedDataIfNeeded
         }
         else
         {
-            await SeedData();
+            await SeedData<Tag>();
         }
         
     }
 
-    public async Task SeedData()
+    public async Task SeedData<T>()
+        where T : class, IStackMarker
     {
         
-        var objects = await _unPackData.UnPackObjects();
+        var objects = await _unPackData.UnPackObjects<T>();
         if(objects is null)
         {
             //logging and exception handling
