@@ -1,5 +1,6 @@
 
 
+using Serilog;
 using Stack.Api.Extensions;
 using Stack.Application;
 using Stack.Application.Extensions;
@@ -32,6 +33,8 @@ builder.Services.AddHttpClient<StackExchangeService>((serviceProvider, httpClien
 })
 .SetHandlerLifetime(Timeout.InfiniteTimeSpan);
 
+builder.Host.UseSerilog((context, configuration) =>
+    configuration.ReadFrom.Configuration(context.Configuration));
 
 var app = builder.Build();
 app.ApplyMigrations();
@@ -44,6 +47,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+app.UseSerilogRequestLogging();
 app.UseHttpsRedirection();
 
 app.UseAuthorization();

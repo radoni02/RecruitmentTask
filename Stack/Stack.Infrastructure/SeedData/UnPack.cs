@@ -1,4 +1,5 @@
-﻿using Stack.Application.SeedData;
+﻿using Microsoft.Extensions.Logging;
+using Stack.Application.SeedData;
 using Stack.Domain.Model;
 using System;
 using System.Collections.Generic;
@@ -10,16 +11,19 @@ namespace Stack.Infrastructure.SeedData;
 
 internal sealed class UnPack : IUnPack
 {
+    private readonly ILogger<UnPack> _logger;
     private readonly StackExchangeService _service;
 
-    public UnPack(StackExchangeService service)
+    public UnPack(StackExchangeService service,ILogger<UnPack> logger)
     {
         _service = service;
+        _logger = logger;
     }
 
     public async Task<List<T>> UnPackObjects<T>()
         where T : class, IStackMarker
     {
+        _logger.LogInformation("Start fetching data from StackExchange api.");
         bool hasMore = true;
         int page = 1;
         var tags = new List<T>();

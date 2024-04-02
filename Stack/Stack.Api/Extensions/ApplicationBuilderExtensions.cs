@@ -6,6 +6,7 @@ namespace Stack.Api.Extensions;
 
 public static class ApplicationBuilderExtensions
 {
+
     public static void ApplyMigrations(this IApplicationBuilder app)
     {
         using var scope = app.ApplicationServices.CreateScope();
@@ -13,9 +14,7 @@ public static class ApplicationBuilderExtensions
         if (!dbContext.Database.GetAppliedMigrations().Any())
         {
             dbContext.Database.Migrate();
-            //log that migration will be created
         }
-        //log that migration is already created 
     }
 
     public async static void SeedDataProvider(this IApplicationBuilder app)
