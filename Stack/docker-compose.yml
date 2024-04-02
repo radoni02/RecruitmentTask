@@ -1,0 +1,32 @@
+version: '3.4'
+
+services:
+  stack.api:
+    image: ${DOCKER_REGISTRY-}stackapi
+    build:
+      context: .
+      dockerfile: Stack.Api/Dockerfile
+    depends_on:
+      - Stack.Db
+    networks:
+      - stack_network
+
+  Stack.Db:
+    image: postgres:latest
+    container_name: Stack.Db
+    environment:
+      POSTGRES_DB: stackDb
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 123
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - 5432:5432
+    networks:
+      - stack_network
+
+volumes:
+  postgres_data:
+
+networks:
+  stack_network:

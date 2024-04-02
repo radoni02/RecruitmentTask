@@ -2,13 +2,16 @@
 FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS base
 USER app
 WORKDIR /app
-EXPOSE 8080
-EXPOSE 8081
+EXPOSE 5000
+EXPOSE 5001
 
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
 COPY ["Stack.Api/Stack.Api.csproj", "Stack.Api/"]
+COPY ["Stack.Application/Stack.Application.csproj", "Stack.Application/"]
+COPY ["Stack.Domain/Stack.Domain.csproj", "Stack.Domain/"]
+COPY ["Stack.Infrastructure/Stack.Infrastructure.csproj", "Stack.Infrastructure/"]
 RUN dotnet restore "./Stack.Api/./Stack.Api.csproj"
 COPY . .
 WORKDIR "/src/Stack.Api"
