@@ -24,7 +24,7 @@ public class TagsController : ControllerBase
     }
 
     [HttpGet]
-    public async Task<PagedResult<TagDto>> GetAllTags(int page,int pageSize, SortProperty SortColumn, SortOrder SortOrder ,CancellationToken cancellationToken)
+    public async Task<ActionResult<PagedResult<TagDto>>> GetAllTags(int page,int pageSize, SortProperty SortColumn, SortOrder SortOrder ,CancellationToken cancellationToken)
     {
         var query = new GetAllTagsQuery(page,pageSize,SortColumn,SortOrder);
         var tags = await _queryDispatcher.QueryAsync<GetAllTagsQuery,PagedResult<TagDto>>(query,cancellationToken);
@@ -32,17 +32,18 @@ public class TagsController : ControllerBase
     }
 
     [HttpGet("percentages")]
-    public async Task<IEnumerable<TagPercentageDto>> CountPercentage(CancellationToken cancellationToken)
+    public async Task<ActionResult<IEnumerable<TagPercentageDto>>> CountPercentage(CancellationToken cancellationToken)
     {
         var query = new CountPercentageQuery();
         var tags = await _queryDispatcher.QueryAsync<CountPercentageQuery, IEnumerable<TagPercentageDto>>(query, cancellationToken);
-        return tags;
+        return Ok(tags);
     }
 
     [HttpPost]
-    public async Task ForceRedownloadTags(CancellationToken cancellationToken)
+    public async Task<IActionResult> ForceRedownloadTags(CancellationToken cancellationToken)
     {
         var command = new ForceRedownloadCommand();
         await _commandDispatcher.SendAsync(command);
+        return Ok(command);
     }
 }
