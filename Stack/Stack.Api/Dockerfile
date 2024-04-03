@@ -20,6 +20,8 @@ FROM build AS publish
 ARG BUILD_CONFIGURATION=Release
 RUN dotnet publish "./Stack.Api.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false
 
+ENV ASPNETCORE_ENVIRONMENT Docker
+
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
