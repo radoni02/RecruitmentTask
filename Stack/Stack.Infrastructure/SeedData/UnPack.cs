@@ -25,30 +25,37 @@ internal sealed class UnPack : IUnPack
 
     public async Task<List<Tag>> UnPackObjects()
     {
-        _logger.LogInformation("Start fetching data from StackExchange api.");
-        bool hasMore = true;
-        int page = 1;
-        var tags = new List<Tag>();
-        while (hasMore)
+        try
         {
-            var response = await _service.GetTagsAsync(_options.Url + $"{page}");
+            _logger.LogInformation("Start fetching data from StackExchange api.");
+            bool hasMore = true;
+            int page = 1;
+            var tags = new List<Tag>();
+            while (hasMore)
+            {
+                var response = await _service.GetTagsAsync(_options.Url + $"{page}");
 
-            foreach (var t in response.Items)
-                tags.Add(t);
+                foreach (var t in response.Items)
+                    tags.Add(t);
 
-            if (response.HasMore)
-                if (page >= _options.NumberOfPages)
-                    hasMore = false;
+                if (response.HasMore)
+                    if (page >= _options.NumberOfPages)
+                        hasMore = false;
+                    else
+                    {
+                        hasMore = true;
+                        page++;
+                    }
+
                 else
-                {
-                    hasMore = true;
-                    page++;
-                }
+                    hasMore = false;
 
-            else
-                hasMore = false;
-
+            }
+            return tags;
         }
-        return tags;
+        catch(Exception ex)
+        {
+            return null;
+        }
     }
 }

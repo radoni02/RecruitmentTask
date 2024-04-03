@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Logging;
+using Stack.Application.Exceptions;
 using Stack.Application.SeedData;
 using Stack.Domain.Model;
 using System;
@@ -45,7 +46,8 @@ public class SeedDataIfNeeded
         var objects = await _unPackData.UnPackObjects();
         if(objects is null)
         {
-            _logger.LogError("Objects are null.");
+            _logger.LogError("Bad stack Exchange configuration.");
+            throw new BadConfigurationException("Bad stack Exchange configuration");
         }
         await _seedData.Seed(objects);
     }
