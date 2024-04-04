@@ -1,5 +1,6 @@
 
 
+using Microsoft.Extensions.Options;
 using Serilog;
 using Stack.Api.Extensions;
 using Stack.Api.Middleware;
@@ -26,10 +27,14 @@ builder.Services.AddApplication();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+builder.Services.Configure<StackExchangeOptions>(builder.Configuration.GetSection(nameof(StackExchangeOptions)));
+
 builder.Services.AddHttpClient<StackExchangeService>((serviceProvider, httpClient) =>
 {
-    httpClient.DefaultRequestHeaders.Add("key", "*i5PChBT1XHsIu1OWxqEvg((");
-    httpClient.BaseAddress = new Uri("https://api.stackexchange.com");
+    var stackSettings = serviceProvider.GetRequiredService<IOptions<StackExchangeOptions>>().Value;
+
+    httpClient.DefaultRequestHeaders.Add("key", stackSettings.Key);
+    httpClient.BaseAddress = new Uri(stackSettings.WebSite);
 })
 .ConfigurePrimaryHttpMessageHandler(() =>
 {   //used to provide safe injection this transient service into singleton
@@ -48,7 +53,7 @@ builder.Services.AddControllers().AddJsonOptions(options =>
     options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
 });
 
-builder.Services.Configure<StackExchangeOptions>(builder.Configuration.GetSection(nameof(StackExchangeOptions)));
+
 
 var app = builder.Build();
 app.ApplyMigrations();
