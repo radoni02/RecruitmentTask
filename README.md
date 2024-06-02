@@ -1,4 +1,4 @@
-# RecruitmentTask
+# StackExchange_Connector
 
 ## Launching a project using Docker
 
